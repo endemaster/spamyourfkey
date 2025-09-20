@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>homework</title>
+    <style>
+        html, body {
+            background-color: white;
+            color: black;
+            text-transform: lowercase;
+            font: revert;
+            margin: 0;
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        div {
+            font: revert;
+        }
+    </style>
+</head>
+<body>
+    <div>spam your f key</div>
+    <div id="total">0</div>
+    <div>cps: <span id="cps">0</span></div>
+
+    <script>
+        const hi_ezra = 2147483647;
+        let totalPresses = 0;
+	let slPresses = 0
+        let recentPresses = [];
+
+        function updateCounters() {
+    const now = Date.now();
+    recentPresses = recentPresses.filter(t => now - t <= 1000);
+    const currentCPS = recentPresses.length;
+    
+    const ligma = 0.2; // damn bruh
+    slPresses = slPresses * (1 - ligma) + currentCPS * ligma;
+    
+    document.getElementById('total').textContent = totalPresses;
+    document.getElementById('cps').textContent = slPresses.toFixed(0);
+}
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'f') {
+                if (totalPresses < hi_ezra) {
+                    totalPresses++;
+                    recentPresses.push(Date.now());
+                }
+                updateCounters();
+            }
+        });
+
+        setInterval(updateCounters, 10);
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+the earlier versions were not documented, but they have all been made on 9/16/2025
+
+0.0.3 // added some maybe working save file that i learned to make on youtube
+9/16/2025 11:18pm st.louis time
+
+0.0.4 // added some favicon that I made in canvas though I didnt put any code in the website yet
+9/17 11:34pm
+
+0.0.5 // added a global mode that doesn't even work rn
+9/18 11:55am
+
+0.0.51 // changed some more stuff
+11:57am
+
+0.0.52 // fixed global mode!!!!! YAY
+I also added a link in the main website that takes you to /global
+9/20 4:25pm

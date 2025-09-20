@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>homework</title>
+  <style>
+    html, body {
+      background-color: white;
+      color: black;
+      text-transform: lowercase;
+      font: revert;
+      margin: 0;
+      height: 100%;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    div {
+      font: revert;
+    }
+  </style>
+</head>
+<body>
+  <div>spam your f key</div>
+  <div id="total">0</div>
+  <div>local cps: <span id="local cps">0</span></div>
+
+<a href="https://fcounterserver.onrender.com" 
+   style="position: fixed; bottom: 10px; left: 10px; text-decoration: underline; color: blue; font: revert;">
+  If number is stuck at 0 and doesn't go up, then click here until you see "Cannot GET /" to start server.
+</a>
+
+
+
+      <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+
+  <script>
+    const hi_ezra = 2147483647;
+    let totalPresses = 0;
+    let slPresses = 0;
+    let recentPresses = [];
+
+    // backend connection
+
+    const socket = io("https://fcounterserver.onrender.com");
+
+function updateCounters() {
+  const now = Date.now();
+  // Keep only presses in the last 1000ms (1 second)
+  recentPresses = recentPresses.filter(t => now - t <= 1000);
+
+  // Update CPS
+  slPresses = recentPresses.length;
+
+  document.getElementById('total').textContent = totalPresses;
+  document.getElementById('cps').textContent = slPresses.toFixed(0);
+
+  saveProgress();
+}
+
+    // totalPresses already comes from server
+    document.getElementById('total').textContent = totalPresses;
+    document.getElementById('local cps').textContent = slPresses.toFixed(0);
+    }
+
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'f') {
+        if (totalPresses < hi_ezra) {
+          
+    // tell the server
+
+          socket.emit("increment");
+          recentPresses.push(Date.now());
+        }
+      }
+    });
+
+    // listen for server updates
+    socket.on("countUpdate", (count) => {
+      totalPresses = count;
+      updateCounters();
+    });
+
+    setInterval(updateCounters, 10000);
+  </script>
+</body>
+</html>
